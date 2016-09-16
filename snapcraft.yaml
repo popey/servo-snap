@@ -1,0 +1,59 @@
+name: servo
+version: "0.0-git"
+summary: Servo is a prototype web browser engine written in the Rust language
+description: |
+  Servo is a prototype web browser engine written in the Rust language
+
+confinement: strict
+
+apps:
+  servo:
+    command: desktop-launch $SNAP/runservo
+    plugs: [X11, network, pulseaudio, opengl, unity7]
+
+parts:
+  launcher:
+    plugin: copy
+    files:
+      runservo: runservo
+    stage-packages:
+      - libxcursor1
+      - libxi6
+      - libgl1-mesa-dri
+      - libglu1-mesa
+      - libgles2-mesa
+      - libegl1-mesa
+      - libfontconfig1
+      - libharfbuzz0b
+      - libxmu6
+  servo:
+    after:
+      - desktop-gtk3
+    plugin: servo
+    source: https://github.com/servo/servo
+    source-type: git
+    source-tag: "homu-tmp"
+    build-packages:
+      - curl
+      - freeglut3-dev
+      - autoconf
+      - libfreetype6-dev
+      - libgl1-mesa-dri
+      - libglib2.0-dev
+      - xorg-dev
+      - gperf
+      - g++
+      - build-essential
+      - cmake
+      - virtualenv
+      - python-pip
+      - libssl-dev
+      - libbz2-dev
+      - libosmesa6-dev
+      - libxmu6
+      - libxmu-dev
+      - libglu1-mesa-dev
+      - libgles2-mesa-dev
+      - libegl1-mesa-dev
+      - libdbus-1-dev
+      - libavformat-dev
